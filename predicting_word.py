@@ -171,7 +171,16 @@ print("Bigram prediction for 'i':", predict_bigram("i"))
 print("Generated sentence from 'i':", generate_text_bigram("i"))
 print()
 
-print("Bigram Prediction — Interactive (5 words):")
+print("Bigram Prediction — Interactive (5 words) - To Predict next word in phrase:")
+for i in range(5):
+    user_input = input(f"  Enter word {i+1}: ").lower().strip()
+    if user_input == "":
+        print("  (empty — skipped)")
+        continue
+    print("  Prediction:", predict_bigram(user_input))
+print()
+
+print("Bigram Prediction — Interactive (5 words) - To Predict phrase:")
 for i in range(5):
     user_input = input(f"  Enter word {i+1}: ").lower().strip()
     if user_input == "":
@@ -217,6 +226,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 print(f"Training samples : {len(X_train)}")
 print(f"Test samples     : {len(X_test)}\n")
+
+print("Note: Training may take several minutes due to dataset size. Be Patient 🙂\n")
 
 # LSTM MODEL DEFINITION
 lstm_model = Sequential([
