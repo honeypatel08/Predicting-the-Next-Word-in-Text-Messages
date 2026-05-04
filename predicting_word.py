@@ -325,12 +325,9 @@ print(f"{'LSTM':<15} {accuracy:>10.4f} {compute_perplexity(lstm_model, X_test, y
 print("=" * 45)
 
 
-# =============================================================================
-# PHASE 10 — PER-SOURCE EVALUATION
+# PER-SOURCE EVALUATION
 # Evaluate the LSTM separately on SMS and chatbot test samples.
 # This shows which conversation type the model learned better.
-# =============================================================================
-
 # Rebuild source labels aligned with the sequences
 # Each sequence came from a specific row; retrieve the source for each row index
 source_per_seq = []
