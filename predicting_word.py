@@ -152,7 +152,7 @@ for w1, w2 in bigrams:
 def predict_bigram(word):
     if word in bigram_model:
         return bigram_model[word].most_common(1)[0][0]
-    return "no_prediction"
+    return "No Prediction"
 
 
 def generate_text_bigram(start_word, n=5):
@@ -160,7 +160,7 @@ def generate_text_bigram(start_word, n=5):
     current = start_word
     for _ in range(n):
         next_w = predict_bigram(current)
-        if next_w == "no_prediction":
+        if next_w == "No Prediction":
             break
         result.append(next_w)
         current = next_w
