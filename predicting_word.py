@@ -399,7 +399,7 @@ def predict_top_k(text, model, tokenizer, max_len, k=3):
 # user type any phrase and see:
 # the single best next-word prediction (LSTM), the top-3 candidates with probabilities, the bigram model's prediction for comparison
 
-print("\n=== INTERACTIVE NEXT-WORD PREDICTION ===")
+print("\nINTERACTIVE NEXT-WORD PREDICTION")
 print("Type a phrase and press Enter to see predictions.")
 print("Type 'done' to quit.\n")
 
@@ -407,14 +407,14 @@ while True:
     user_text = input("Enter text: ").strip()
 
     if user_text.lower() == "done":
-        print("Exiting. Goodbye!")
+        print("Exiting!")
         break
 
     best   = predict_next_word(user_text, lstm_model, tokenizer, MAX_SEQ_LEN)
     top3   = predict_top_k(user_text, lstm_model, tokenizer, MAX_SEQ_LEN, k=3)
     bigram = predict_bigram(user_text.split()[-1])   # bigram uses only the last word
 
-    print(f"  LSTM best prediction : {best}")
-    print(f"  LSTM top-3           : {[(w, f'{p:.3f}') for w, p in top3]}")
-    print(f"  Bigram prediction    : {bigram}")
+    print(f"LSTM best prediction : {best}")
+    print(f"LSTM top-3 : {[(w, f'{p:.3f}') for w, p in top3]}")
+    print(f"Bigram prediction : {bigram}")
     print()
