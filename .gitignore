@@ -2,4 +2,6 @@
 *.xls
 *.docx
 /venv/
+
 chatbot_conversations.csv
+
