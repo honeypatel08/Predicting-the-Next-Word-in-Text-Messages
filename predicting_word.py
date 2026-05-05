@@ -312,6 +312,26 @@ def bigram_accuracy(word_list):
         total += 1
     return correct / total if total > 0 else 0
 
+def bigram_perplexity(word_list):
+    log_prob_sum = 0
+    total  = 0
+    for i in range(len(word_list) - 1):
+        w1 = word_list[i]
+        w2 = word_list[i + 1]
+        total_count = sum(bigram_model[w1].values()) if w1 in bigram_model else 0
+
+        if total_count > 0:
+            prob = bigram_model[w1][w2] / total_count  
+        else:
+            prob = 1e-10  
+
+        log_prob_sum += np.log(prob + 1e-10)
+        total += 1
+    avg_log_prob = log_prob_sum / total if total > 0 else 0
+    return np.exp(-avg_log_prob)
+
+print(f"Bigram Perplexity : {bigram_perplexity(sample_words):.2f}")
+
 
 sample_words = corpus_words[:5000]
 print(f"Bigram Accuracy    : {bigram_accuracy(sample_words):.4f}\n")
@@ -320,7 +340,7 @@ print(f"Bigram Accuracy    : {bigram_accuracy(sample_words):.4f}\n")
 print("=" * 45)
 print(f"{'Model':<15} {'Accuracy':>10} {'Perplexity':>15}")
 print("-" * 45)
-print(f"{'Bigram':<15} {bigram_accuracy(sample_words):>10.4f} {'N/A':>15}")
+print(f"{'Bigram':<15} {bigram_accuracy(sample_words):>10.4f} {bigram_perplexity(sample_words):>15.2f}")
 print(f"{'LSTM':<15} {accuracy:>10.4f} {compute_perplexity(lstm_model, X_test, y_test):>15.2f}")
 print("=" * 45)
 
