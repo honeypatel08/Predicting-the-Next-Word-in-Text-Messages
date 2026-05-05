@@ -330,11 +330,10 @@ def bigram_perplexity(word_list):
     avg_log_prob = log_prob_sum / total if total > 0 else 0
     return np.exp(-avg_log_prob)
 
-print(f"Bigram Perplexity : {bigram_perplexity(sample_words):.2f}")
-
-
 sample_words = corpus_words[:5000]
 print(f"Bigram Accuracy    : {bigram_accuracy(sample_words):.4f}\n")
+print(f"Bigram Perplexity : {bigram_perplexity(sample_words):.2f}")
+
 
 # ── Comparison table ──────────────────────────────────────────────────────────
 print("=" * 45)
