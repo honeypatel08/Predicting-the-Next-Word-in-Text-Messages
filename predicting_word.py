@@ -216,8 +216,8 @@ X = padded_sequences[:, :-1]
 y = padded_sequences[:, -1]
 
 print(f"Total training sequences : {len(sequences)}")
-print(f"Sequence length (X)      : {X.shape[1]}")
-print(f"Vocabulary size          : {VOCAB_SIZE}\n")
+print(f"Sequence length (X) : {X.shape[1]}")
+print(f"Vocabulary size : {VOCAB_SIZE}\n")
 
 
 # TRAIN / TEST SPLIT Hold out 20% of sequences for evaluation so the model is tested on data it has never seen during training.
@@ -225,7 +225,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 print(f"Training samples : {len(X_train)}")
-print(f"Test samples     : {len(X_test)}\n")
+print(f"Test samples : {len(X_test)}\n")
 
 print("Note: Training may take several minutes due to dataset size. Be Patient 🙂\n")
 
@@ -300,12 +300,12 @@ def compute_perplexity(model, X, y):
     return np.exp(ce_loss)
 
 
-print(f"LSTM Perplexity    : {compute_perplexity(lstm_model, X_test, y_test):.2f}")
+print(f"LSTM Perplexity  : {compute_perplexity(lstm_model, X_test, y_test):.2f}")
 
 
 def bigram_accuracy(word_list):
     correct = 0
-    total   = 0
+    total = 0
     for i in range(len(word_list) - 1):
         if predict_bigram(word_list[i]) == word_list[i + 1]:
             correct += 1
@@ -331,18 +331,15 @@ def bigram_perplexity(word_list):
     return np.exp(-avg_log_prob)
 
 sample_words = corpus_words[:5000]
-print(f"Bigram Accuracy    : {bigram_accuracy(sample_words):.4f}\n")
+print(f"Bigram Accuracy : {bigram_accuracy(sample_words):.4f}")
 print(f"Bigram Perplexity : {bigram_perplexity(sample_words):.2f}")
 
 
 # ── Comparison table ──────────────────────────────────────────────────────────
-print("=" * 45)
 print(f"{'Model':<15} {'Accuracy':>10} {'Perplexity':>15}")
-print("-" * 45)
+
 print(f"{'Bigram':<15} {bigram_accuracy(sample_words):>10.4f} {bigram_perplexity(sample_words):>15.2f}")
 print(f"{'LSTM':<15} {accuracy:>10.4f} {compute_perplexity(lstm_model, X_test, y_test):>15.2f}")
-print("=" * 45)
-
 
 # PER-SOURCE EVALUATION
 # Evaluate the LSTM separately on SMS and chatbot test samples.
@@ -351,9 +348,9 @@ print("=" * 45)
 # Each sequence came from a specific row; retrieve the source for each row index
 source_per_seq = []
 for idx, row in df.iterrows():
-    line       = row['Message']
+    line = row['Message']
     token_list = tokenizer.texts_to_sequences([line])[0]
-    n_seqs     = max(0, len(token_list) - 1)   # number of sequences from this row
+    n_seqs = max(0, len(token_list) - 1)   # number of sequences from this row
     source_per_seq.extend([row['source']] * n_seqs)
 
 source_arr = np.array(source_per_seq)
@@ -366,14 +363,14 @@ _, source_test = train_test_split(source_arr, test_size=0.2, random_state=42)
 
 print("\nPer-source LSTM evaluation:")
 for src in ['sms', 'chatbot']:
-    mask     = source_test == src
-    X_src    = X_test[mask]
-    y_src    = y_test[mask]
+    mask  = source_test == src
+    X_src = X_test[mask]
+    y_src = y_test[mask]
     if len(X_src) == 0:
         print(f"  {src}: no test samples found")
         continue
     l, a = lstm_model.evaluate(X_src, y_src, verbose=0)
-    pp   = np.exp(l)
+    pp = np.exp(l)
     print(f"  {src.upper():>10} — Accuracy: {a:.4f}  |  Perplexity: {pp:.2f}")
 
 
@@ -387,27 +384,27 @@ index_word = {v: k for k, v in tokenizer.word_index.items()}
 
 
 def predict_next_word(text, model, tokenizer, max_len):
-    text     = re.sub(r'[^a-z0-9\s]', '', text.lower()).strip()
+    text = re.sub(r'[^a-z0-9\s]', '', text.lower()).strip()
     sequence = tokenizer.texts_to_sequences([text])
 
     if not sequence or len(sequence[0]) == 0:
         return "no input"
 
-    padded    = pad_sequences([sequence[0]], maxlen=max_len, padding='pre')
-    probs     = lstm_model.predict(padded, verbose=0)[0]
+    padded = pad_sequences([sequence[0]], maxlen=max_len, padding='pre')
+    probs = lstm_model.predict(padded, verbose=0)[0]
     best_idx  = np.argmax(probs)
     return index_word.get(best_idx, "<UNK>")
 
 
 def predict_top_k(text, model, tokenizer, max_len, k=3):
-    text     = re.sub(r'[^a-z0-9\s]', '', text.lower()).strip()
+    text = re.sub(r'[^a-z0-9\s]', '', text.lower()).strip()
     sequence = tokenizer.texts_to_sequences([text])
 
     if not sequence or len(sequence[0]) == 0:
         return [("no input", 0.0)]
 
-    padded      = pad_sequences([sequence[0]], maxlen=max_len, padding='pre')
-    probs       = lstm_model.predict(padded, verbose=0)[0]
+    padded = pad_sequences([sequence[0]], maxlen=max_len, padding='pre')
+    probs = lstm_model.predict(padded, verbose=0)[0]
     top_indices = np.argsort(probs)[-k:][::-1]   # indices of top-k probabilities
 
     return [(index_word.get(i, "<UNK>"), float(probs[i])) for i in top_indices]
@@ -429,8 +426,8 @@ while True:
         print("Exiting!")
         break
 
-    best   = predict_next_word(user_text, lstm_model, tokenizer, MAX_SEQ_LEN)
-    top3   = predict_top_k(user_text, lstm_model, tokenizer, MAX_SEQ_LEN, k=3)
+    best = predict_next_word(user_text, lstm_model, tokenizer, MAX_SEQ_LEN)
+    top3 = predict_top_k(user_text, lstm_model, tokenizer, MAX_SEQ_LEN, k=3)
     bigram = predict_bigram(user_text.split()[-1])   # bigram uses only the last word
 
     print(f"LSTM best prediction : {best}")
