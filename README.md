@@ -1,6 +1,21 @@
 # Predicting the Next Word in Text-Messages
 
-In order to run the program, we ask you to download zip file from kaggle for chatbot conversation dataset (https://www.kaggle.com/datasets/abhayayare/multi-turn-chatbot-conversation-dataset), have .csv file in same locations as where .py file is.  Like how following image shows, same name and location. 
+In order to run the program, please follow the Dataset Setup Steps. 
+
+Dataset Setup
+This project requires the Multi-turn Chatbot Conversation Dataset from Kaggle.
+
+Please download the dataset ZIP file from: https://www.kaggle.com/datasets/abhayayare/multi-turn-chatbot-conversation-dataset
+After downloading:
+  1. Extract the ZIP file.
+  2. Place the .csv file in the same directory as the Python (.py ) file.
+  3. Ensure the filename remains unchanged.
+
+Project structure should look similar to this (Or image below):
+project_folder/
+  predicting_word.py
+  chatbot_conversation_dataset.csv
+  README.md
 
 <img width="746" height="432" alt="image" src="https://github.com/user-attachments/assets/9886459a-0798-4b42-a66e-0a3db8a11d3f" />
 
