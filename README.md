@@ -11,8 +11,8 @@ After downloading:
   2. Place the .csv file in the same directory as the Python (.py ) file.
   3. Ensure the filename remains unchanged.
 
-Project structure should look similar to this (Or image below):
-Predicting-the-Next-Word-in-Text-Messages//  
+Project structure should look similar to this (Or image below):   
+Predicting-the-Next-Word-in-Text-Messages/ 
 predicting_word.py  
 chatbot_conversations.csv  
 README.md
