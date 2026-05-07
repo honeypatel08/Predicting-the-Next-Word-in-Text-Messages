@@ -12,10 +12,10 @@ After downloading:
   3. Ensure the filename remains unchanged.
 
 Project structure should look similar to this (Or image below):
-project_folder/
-  predicting_word.py
-  chatbot_conversation_dataset.csv
-  README.md
+Predicting-the-Next-Word-in-Text-Messages/
+predicting_word.py
+chatbot_conversations.csv
+README.md
 
 <img width="746" height="432" alt="image" src="https://github.com/user-attachments/assets/9886459a-0798-4b42-a66e-0a3db8a11d3f" />
 
